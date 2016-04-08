@@ -17,6 +17,6 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^newtongauss/', include('newtongauss.urls')),
+    url(r'^', include('newtongauss.urls')),
     url(r'^admin/', admin.site.urls),
 ]
