@@ -14,6 +14,8 @@ from rest_framework.response import Response
 from .models import Production
 from .serializers import ProductionSerializer
 
+from .analysis import run_analysis
+
 from itertools import chain
 import numpy as np
 import json
@@ -31,6 +33,10 @@ def production_list(request, format=None):
         return Response(serializer.data)
 
     elif request.method == 'POST':
+
+        al = Production.objects.all() #delete all previous entry when post is ran
+        al.delete()
+
         process_data = request.data
 
         process_data = dict(process_data) #change querydict to dictionary values
@@ -41,14 +47,17 @@ def production_list(request, format=None):
         process_data= process_data[0] #locate the correct array place
         process_data = np.fromstring(process_data, sep=',') #convert numpy string into float
 
-        process_data = np.add(process_data,100000)  #run algorithm here
+
+        #process_data = np.add(process_data,100000)
+        process_data = run_analysis(process_data)#run algorithm here
+
 
         process_data= str(process_data)  #convert an array of floats into an array of string so we can input as dictioary
 
         #trim the data so it can fit in the input parameters
-        process_data =process_data.replace(". ",",")
-        process_data =process_data.replace(".","")
-        process_data =process_data.replace(" ","")
+
+        process_data =process_data.replace("  ",",") #there is extra space after first number for some reason
+        process_data =process_data.replace(" ",",")
         process_data =process_data.replace("[","")
         process_data =process_data.replace("]","")
 
@@ -56,7 +65,7 @@ def production_list(request, format=None):
         key="production_list" #create key for input after running algorithm
         input_data[key] = process_data #input processed data into dictionary, so we can serialize this
 
-        print(process_data)
+
         #pre_seal = {'production_list': '1,2,3,4,5'}
 
         serializer = ProductionSerializer(data =input_data)
