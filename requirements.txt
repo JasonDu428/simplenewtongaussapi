@@ -1,0 +1,11 @@
+cycler==0.10.0
+Django==1.9.5
+djangorestframework==3.3.3
+matplotlib==1.5.1
+numpy==1.11.0
+pandas==0.18.0
+pyparsing==2.1.1
+python-dateutil==2.5.2
+pytz==2016.3
+six==1.10.0
+xlrd==0.9.4
