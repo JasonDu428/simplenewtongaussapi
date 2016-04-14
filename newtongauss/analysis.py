@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import copy
 
 #np.set_printoptions(precision=16)
@@ -105,12 +105,12 @@ def run_analysis(prod_input):
             tot_regs=np.c_[tot_regs,total_regress]
 
             #graph in matplotlib
-            plt.semilogy(time,prod)
-            plt.semilogy(time[max_pos:len(time)],qt)
-            plt.xlabel('Time in months')
-            plt.ylabel('BOPM')
-            plt.title('Prod Per Month vs Month')
-            plt.show(column)
+            # plt.semilogy(time,prod)
+            # plt.semilogy(time[max_pos:len(time)],qt)
+            # plt.xlabel('Time in months')
+            # plt.ylabel('BOPM')
+            # plt.title('Prod Per Month vs Month')
+            # plt.show(column)
 
             #calculate, form z0 (di first)
             z0 = np.concatenate((d_di,d_b),axis=1)
