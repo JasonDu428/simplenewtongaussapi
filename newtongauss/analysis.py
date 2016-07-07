@@ -24,9 +24,13 @@ def run_analysis(prod_input):
     input =np.matrix(prod_input)
 
     time = np.arange(len(np.transpose(input)))
+    
     time = np.add(time,1)
+    
     time =time.reshape((1,len(np.transpose(input))))
+   
     top = np.zeros((1,2),dtype=np.int)
+    
 
 
     input = np.transpose(np.concatenate((time,input),axis =0))
@@ -52,7 +56,7 @@ def run_analysis(prod_input):
 
         prod_range = len(input[:,column])
         prod = input[1:prod_range ,column]
-
+        print(prod)
          #initial geuss a and b factor
         di = .5
         b = .5
@@ -64,7 +68,7 @@ def run_analysis(prod_input):
         error_array =0#initial start of error ratio array
         run = 0
         tot_regs=np.array([500]) #might need to be fixed
-
+        
 
         ####levenBerg - Marquardt Algorith##################################
         lam = lam
@@ -78,6 +82,7 @@ def run_analysis(prod_input):
 
             #find maximum point position and decline from that point and onward
             max_pos = np.argmax(prod)
+            print(max_pos)
             qi = prod[max_pos]
             qt = qi/np.power((1+b*di*time),(1/b))
             qt = qt[0:len(prod)-1-max_pos]
