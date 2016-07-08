@@ -1,5 +1,6 @@
 cycler==0.10.0
 Django==1.9.5
+django-cors-headers==1.1.0
 djangorestframework==3.3.3
 gunicorn==19.4.5
 matplotlib==1.5.1
