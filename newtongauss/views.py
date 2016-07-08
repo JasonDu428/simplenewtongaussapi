@@ -39,27 +39,27 @@ def production_list(request, format=None):
 
         process_data = request.data
 
-        process_data = dict(process_data) #change querydict to dictionary values
+        # process_data = dict(process_data) #change querydict to dictionary values
 
-        process_data = chain.from_iterable(process_data.values()) # combine into array, and filter into numpy
-        process_data = np.array(list(process_data))
+        # process_data = chain.from_iterable(process_data.values()) # combine into array, and filter into numpy
+        # process_data = np.array(list(process_data))
 
-        process_data= process_data[0] #locate the correct array place
-        process_data = np.fromstring(process_data, sep=',') #convert numpy string into float
-
-
-        #process_data = np.add(process_data,100000)
-        process_data = run_analysis(process_data)#run algorithm here
+        # process_data= process_data[0] #locate the correct array place
+        # process_data = np.fromstring(process_data, sep=',') #convert numpy string into float
 
 
-        process_data= str(process_data)  #convert an array of floats into an array of string so we can input as dictioary
+        # #process_data = np.add(process_data,100000)
+        # process_data = run_analysis(process_data)#run algorithm here
 
-        #trim the data so it can fit in the input parameters
 
-        process_data =process_data.replace("  ",",") #there is extra space after first number for some reason
-        process_data =process_data.replace(" ",",")
-        process_data =process_data.replace("[","")
-        process_data =process_data.replace("]","")
+        # process_data= str(process_data)  #convert an array of floats into an array of string so we can input as dictioary
+
+        # #trim the data so it can fit in the input parameters
+
+        # process_data =process_data.replace("  ",",") #there is extra space after first number for some reason
+        # process_data =process_data.replace(" ",",")
+        # process_data =process_data.replace("[","")
+        # process_data =process_data.replace("]","")
 
         input_data = {} #initialize empty dictionary
         key="production_list" #create key for input after running algorithm
