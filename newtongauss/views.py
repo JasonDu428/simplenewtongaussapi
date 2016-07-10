@@ -38,42 +38,56 @@ def production_list(request, format=None):
         al.delete()
 
         process_data = request.data
+        print(process_data)
 
-        process_data = dict(process_data) #change querydict to dictionary values
+       
+        print(process_data['production_list'])
+        processed_rundata = process_data['production_list']
+        ################# version 1 ######################
+        # process_data = dict(process_data) #change querydict to dictionary values
 
-        process_data = chain.from_iterable(process_data.values()) # combine into array, and filter into numpy
-        process_data = np.array(list(process_data))
+        # process_data = chain.from_iterable(process_data.values()) # combine into array, and filter into numpy
+        # process_data = np.array(list(process_data))
 
-        process_data= process_data[0] #locate the correct array place
-        process_data = np.fromstring(process_data, sep=',') #convert numpy string into float
-
-
-        #process_data = np.add(process_data,100000)
-        process_data = run_analysis(process_data)#run algorithm here
-
-
-        process_data= str(process_data)  #convert an array of floats into an array of string so we can input as dictioary
-
-        #trim the data so it can fit in the input parameters
-
-        process_data =process_data.replace("  ",",") #there is extra space after first number for some reason
-        process_data =process_data.replace(" ",",")
-        process_data =process_data.replace("[","")
-        process_data =process_data.replace("]","")
-
-        input_data = {} #initialize empty dictionary
-        key="production_list" #create key for input after running algorithm
-        input_data[key] = process_data #input processed data into dictionary, so we can serialize this
+        # process_data= process_data[0] #locate the correct array place
+        # process_data = np.fromstring(process_data, sep=',') #convert numpy string into float
 
 
-        #pre_seal = {'production_list': '1,2,3,4,5'}
+        # #process_data = np.add(process_data,100000)
+        # process_data = run_analysis(process_data)#run algorithm here
 
-        serializer = ProductionSerializer(data =input_data)
-        if serializer.is_valid():
-            serializer.save()
 
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # process_data= str(process_data)  #convert an array of floats into an array of string so we can input as dictioary
+
+        # #trim the data so it can fit in the input parameters
+
+        # process_data =process_data.replace("  ",",") #there is extra space after first number for some reason
+        # process_data =process_data.replace(" ",",")
+        # process_data =process_data.replace("[","")
+        # process_data =process_data.replace("]","")
+
+        ########################## Version 2 ###############################
+        print("done 1")
+        process_data = run_analysis(processed_rundata)
+        print(process_data)
+        process_data = np.squeeze(np.asarray(process_data))
+        print(process_data)
+        process_data=process_data.tolist()
+        print(process_data)
+
+        input_data = {"production_list":process_data} #initialize empty dictionary
+       
+        # input_data =input_data.replace("]","'")
+        print(input_data)
+        return Response(input_data, status=status.HTTP_201_CREATED)
+
+        # pre_seal = {'production_list': [1,2,3,4,5]}
+
+        # serializer = ProductionSerializer(data =pre_seal)
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
