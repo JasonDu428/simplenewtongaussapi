@@ -38,6 +38,7 @@ def production_list(request, format=None):
         al.delete()
 
         process_data = request.data
+        process_data = JSONRenderer().render(process_data)
         print(process_data)
 
        
