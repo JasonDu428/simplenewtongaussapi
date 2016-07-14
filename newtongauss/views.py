@@ -72,6 +72,7 @@ def production_list(request, format=None):
         ########################## Version 2 ###############################
         print("done 1")
         print("done 2")
+        #need the extra line below in production!!!, need to take it off in production. converts from u' data to string
         processed_rundata = JSONRenderer().render(processed_rundata)
         process_data = run_analysis(processed_rundata)
         print("done 3")
