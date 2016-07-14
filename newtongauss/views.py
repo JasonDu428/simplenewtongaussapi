@@ -11,6 +11,8 @@ def index(request):
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
+
 from .models import Production
 from .serializers import ProductionSerializer
 
@@ -37,9 +39,9 @@ def production_list(request, format=None):
         al = Production.objects.all() #delete all previous entry when post is ran
         al.delete()
 
+        # process_data = JSONRenderer().render(request.data)
         process_data = request.data
-        process_data = JSONRenderer().render(process_data)
-        print(process_data)
+        print('what the f',process_data)
 
        
         print(process_data['production_list'])
@@ -70,6 +72,7 @@ def production_list(request, format=None):
         ########################## Version 2 ###############################
         print("done 1")
         print("done 2")
+        processed_rundata = JSONRenderer().render(processed_rundata)
         process_data = run_analysis(processed_rundata)
         print("done 3")
         print(process_data)
