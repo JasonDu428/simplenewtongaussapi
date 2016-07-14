@@ -22,7 +22,7 @@ prod_input =[3000,1500,1000,700,500,400]
 def run_analysis(prod_input):
 
     input =np.matrix(prod_input)
-
+    print('input variable in run analysis' ,input)
     
     time = np.arange(len(np.transpose(input)))
     

@@ -68,7 +68,9 @@ def production_list(request, format=None):
 
         ########################## Version 2 ###############################
         print("done 1")
+        print("done 2")
         process_data = run_analysis(processed_rundata)
+        print("done 3")
         print(process_data)
         process_data = np.squeeze(np.asarray(process_data))
         print(process_data)
