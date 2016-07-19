@@ -78,11 +78,14 @@ def production_list(request, format=None):
         print("done 3")
         print(process_data)
         process_data = np.squeeze(np.asarray(process_data))
-        print(process_data)
         process_data=process_data.tolist()
-        print(process_data)
+        print('4, d_factor',decline_factor)
+        print('4, b factor',b_factor)
 
-        input_data = {"production_list":process_data} #initialize empty dictionary
+        input_data = {"production_list":process_data,
+                      "decline_factor":decline_factor,
+                      "b_factor":b_factor 
+                      } #initialize empty dictionary
        
         # input_data =input_data.replace("]","'")
         print(input_data)
