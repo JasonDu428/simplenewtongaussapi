@@ -195,7 +195,7 @@ def run_analysis(prod_input):
     # print("****************")
     qt =np.transpose(np.intc(qt))
    
-    return qt
+    return qt, di_array,b_array
 
 
 #print(b)

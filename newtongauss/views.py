@@ -74,7 +74,7 @@ def production_list(request, format=None):
         print("done 2")
         #need the extra line below in production!!!, need to take it off in production. converts from u' data to string
         processed_rundata = JSONRenderer().render(processed_rundata)
-        process_data = run_analysis(processed_rundata)
+        process_data, decline_factor, b_factor = run_analysis(processed_rundata)
         print("done 3")
         print(process_data)
         process_data = np.squeeze(np.asarray(process_data))
