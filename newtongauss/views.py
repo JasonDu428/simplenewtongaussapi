@@ -29,6 +29,7 @@ def production_list(request, format=None):
     """
     List all snippets, or create a new snippet.
     """
+    print("done1")
     if request.method == 'GET':
         productions = Production.objects.all()
         serializer = ProductionSerializer(productions, many=True)

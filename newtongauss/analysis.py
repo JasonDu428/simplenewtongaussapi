@@ -20,7 +20,8 @@ import copy
 prod_input =[3000,1500,1000,700,500,400]
 
 def run_analysis(prod_input):
-
+    #the code below fixes python 2.7 and 3.4 conflict, it decode literal back into string
+    prod_input = prod_input.decode("utf-8")
     input =np.matrix(prod_input)
     print('input variable in run analysis' ,input)
     
