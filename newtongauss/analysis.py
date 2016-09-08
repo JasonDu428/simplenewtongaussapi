@@ -110,8 +110,8 @@ def run_analysis(prod_input):
             regress = np.power(D,2)
             total_regress = np.sum(regress,axis=0)
             tot_regs=np.c_[tot_regs,total_regress]
-
-            #graph in matplotlib
+            print('total regress',tot_regs)
+            # graph in matplotlib
             # plt.semilogy(time,prod)
             # plt.semilogy(time[max_pos:len(time)],qt)
             # plt.xlabel('Time in months')
@@ -132,16 +132,16 @@ def run_analysis(prod_input):
             #######################################
             right = np.transpose(z0)*D
             ans,resid,rank,s=np.linalg.lstsq(zTz,right)
+            # print('right hand side', right)
 
             #break loop when there is complex numbers involved
             if di+ ans[0,0]<0 or b+ans[1,0] < 0:
+                print('there is complex number')
                 break
 
             di_new= di+ans[0,0]
             b_new = b+ans[1,0]
-            # print(run)
-            # print(tot_regs)
-            # print(tot_regs[0,1])
+
             error_ratio = np.abs((tot_regs[0,run]-tot_regs[0,run-1]))/100;
 
             if run>limit_runs:
@@ -195,7 +195,7 @@ def run_analysis(prod_input):
     # print(qt,'qt')
     # print("****************")
     qt =np.transpose(np.intc(qt))
-   
+    print ('printing qt',qt)
     return qt, di_array,b_array
 
 
