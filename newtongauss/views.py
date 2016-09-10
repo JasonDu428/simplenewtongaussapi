@@ -42,10 +42,10 @@ def production_list(request, format=None):
 
         # process_data = JSONRenderer().render(request.data)
         process_data = request.data
-        print('what the f',process_data)
+        # print('what the f',process_data)
 
        
-        print(process_data['production_list'])
+        # print(process_data['production_list'])
         processed_rundata = process_data['production_list']
         ################# version 1 ######################
         # process_data = dict(process_data) #change querydict to dictionary values

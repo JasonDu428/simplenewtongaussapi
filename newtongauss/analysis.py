@@ -17,7 +17,7 @@ import copy
 #
 # # sort out the name of the file
 
-prod_input =[3000,1500,1000,700,500,400]
+# prod_input =[3000,1500,1000,700,500,400]
 
 def run_analysis(prod_input):
     #the code below fixes python 2.7 and 3.4 conflict, it decode literal back into string
@@ -34,21 +34,19 @@ def run_analysis(prod_input):
     top = np.zeros((1,2),dtype=np.int)
     
 
-
     input = np.transpose(np.concatenate((time,input),axis =0))
 
     input = np.concatenate((top,input),axis =0)
 
     time =np.transpose(time)
 
-    lam = 4.0
-    limit_runs =300
-
+    #previous set of lam = 4
+    # seems like lower the lamba is not linear
+    # need to physically model this number in order to get the right outcome
+    lam = 4
+    limit_runs =350
 
     no_converge =0
-
-
-
 
     #size = size1 in matlab
     ##inside for loop
@@ -84,7 +82,9 @@ def run_analysis(prod_input):
 
             #find maximum point position and decline from that point and onward
             max_pos = np.argmax(prod)
-            
+            # print('this is max position', max_pos)
+
+
             qi = prod[max_pos]
             qt = qi/np.power((1+b*di*time),(1/b))
             qt = qt[0:len(prod)-1-max_pos]
@@ -110,7 +110,7 @@ def run_analysis(prod_input):
             regress = np.power(D,2)
             total_regress = np.sum(regress,axis=0)
             tot_regs=np.c_[tot_regs,total_regress]
-            print('total regress',tot_regs)
+        
             # graph in matplotlib
             # plt.semilogy(time,prod)
             # plt.semilogy(time[max_pos:len(time)],qt)
@@ -135,8 +135,10 @@ def run_analysis(prod_input):
             # print('right hand side', right)
 
             #break loop when there is complex numbers involved
+            # print(di+ ans[0,0])
+            # print(b+ans[1,0])
             if di+ ans[0,0]<0 or b+ans[1,0] < 0:
-                print('there is complex number')
+      
                 break
 
             di_new= di+ans[0,0]
